@@ -10,11 +10,15 @@ delay.
 
 ## Requirments:
 
- -Virtual Box
- -Mininet
- -P4
- -Scapy
- -Bmv2 Switch
+-Virtual Box
+
+-Mininet
+ 
+-P4
+ 
+-Scapy
+ 
+-Bmv2 Switch
 
 ## Folder Description:
 
@@ -41,32 +45,32 @@ A: Open terminal go to directory p4@p4:~/tutorials/exercises/NAQM
 
 B: Then give the command:
 
-        **make run**
+        make run
         
 C: A topology will be made and you can check different things like topology, connectivity just use these commands:
         Topology: net
         
-        **Connectivity: h1 ping h2    (use control + c to stop the ping)**
+        Connectivity: h1 ping h2    (use control + c to stop the ping)
         
 D: Now for reproducing our work you use these commands:
          
-         **xterm h1 h2 (you will see two command line windows for h1 and h2 host)**
+         xterm h1 h2 (you will see two command line windows for h1 and h2 host)
          
 E: In h2 commandline window use the command
 
-          **iperf -s** 
+          iperf -s
 
 F: In h1 commandline window use the command
           
-          **iperf -c 10.0.2.2 -t 250**
+          iperf -c 10.0.2.2 -t 250
           
 G: On the same time open another two terminals and in one terminal run this command for caputuring packets from interface 2 of switch:
          
-         **sudo tcpdump -i s1-eth2 -w -c 250 -w interface2.pcap**
+         sudo tcpdump -i s1-eth2 -w -c 250 -w interface2.pcap
          
 H: In second terminal run this command for caputring packets from interface 1 of switch.
           
-          **sudo tcpdump -i s1-eth1 -w -c 250 -w interface1.pcap**
+          sudo tcpdump -i s1-eth1 -w -c 250 -w interface1.pcap
           
 **Note: Now you will see two pcaps file in your Directory NAQM and open these file goto Ip header and you can see the queuing delay.**
 
@@ -76,5 +80,5 @@ H: In second terminal run this command for caputring packets from interface 1 of
 Now you should go directory Open terminal go to directory p4@p4:~/tutorials/exercises/Taildrop and follow the same steps which are mentioned above for existing  taildrop scheme for comparing the performance.
 
 
-#Distribution:
+## Distribution:
 VM 
