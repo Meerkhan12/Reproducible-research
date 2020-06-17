@@ -1,4 +1,3 @@
-
 /* -*- P4_16 -*- */
 #include <core.p4>
 #include <v1model.p4>
@@ -18,15 +17,15 @@ typedef bit<9>  egressSpec_t;
 typedef bit<48> macAddr_t;
 typedef bit<32> ip4Addr_t;
 //input parameters
-typedef int<32> alpha_t;
-typedef int<32> beta_t;
-typedef int<32> delay_t;
-typedef bit<5> interval_t;
+typedef int<32> alpha_t; //different from basic
+typedef int<32> beta_t; //different from basic
+typedef int<32> delay_t;   //different from basic
+typedef bit<5> interval_t;   //different from basic
 //state registers
-register<bit<48>>(256) r_update_time;  // timestamp of previous PI calculation
-register<int<32>>(256) r_queue_delay;  // queue delay at previous PI calculation
-register<bit<32>>(256) r_probability;  // probability at previous PI calculation
-register<bit<32>>(256) r_dropped;      // packets dropped to report in next not dropped packet
+register<bit<48>>(256) r_update_time;  // timestamp of previous PI calculation (different)
+register<int<32>>(256) r_queue_delay;  // queue delay at previous PI calculation (different)
+register<bit<32>>(256) r_probability;  // probability at previous PI calculation (different)
+register<bit<32>>(256) r_dropped;      // packets dropped to report in next not dropped packet (different)
 
 
 header ethernet_t {
@@ -39,9 +38,9 @@ header ipv4_t {
     bit<4>    version;
     bit<4>    ihl;
     bit<6>    diffserv;
-    bit<2>    ecn;
+    bit<2>    ecn;   //different from basic
     bit<16>   totalLen;
-//  bit<16>   identification;  // repurpose identification field...
+    //bit<16>   identification;  // repurpose identification field...
     bit<5>    drops;           // up to 31 previous packets dropped
     bit<11>   qdelay_ms;       // up to 2047ms queue delay
     bit<3>    flags;
@@ -54,7 +53,7 @@ header ipv4_t {
 }
 
 struct metadata {
-    bit<1>   mark_drop;
+    bit<1>   mark_drop;  // in basic this portion is empty
 }
 
 struct headers {
@@ -62,7 +61,7 @@ struct headers {
     ipv4_t       ipv4;
 }
 
-error { IPHeaderTooShort }
+error { IPHeaderTooShort } // different from basic there is nothing in like this in basic
 
 /*************************************************************************
 *********************** P A R S E R  ***********************************
@@ -110,17 +109,19 @@ control MyIngress(inout headers hdr,
                   inout metadata meta,
                   inout standard_metadata_t standard_metadata) {
     action drop() {
-        mark_to_drop();
+        mark_to_drop(standard_metadata);
     
     }
     
     action ipv4_forward(macAddr_t dstAddr, egressSpec_t port) {
+    //action ipv4_forward() {   //different from basic there is nothing like this in basic
         standard_metadata.egress_spec = port;
         hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
         hdr.ethernet.dstAddr = dstAddr;
+        hdr.ethernet.dstAddr = dstAddr;
         hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
     }
-
+           // remember extra
     table ipv4_lpm {
         key = {
             hdr.ipv4.dstAddr: lpm;
@@ -128,15 +129,17 @@ control MyIngress(inout headers hdr,
         actions = {
             ipv4_forward;
             drop;
+NoAction;
         }
         size = 1024;
-        default_action = drop;
+        default_action = drop();  //brackets were missing after drop I put these brackets
     }
  
     apply {
         if (hdr.ipv4.isValid()) {
             ipv4_lpm.apply();
         }
+   
     }
 }
 
@@ -150,7 +153,7 @@ control MyEgress(inout headers hdr,
 
     action drop() {
         bit<32> dropped_pks;
-        mark_to_drop();
+        mark_to_drop(standard_metadata);
         READ_REG(r_dropped, dropped_pks);
         dropped_pks = dropped_pks + 1;
         WRITE_REG(r_dropped, dropped_pks);
@@ -160,7 +163,7 @@ control MyEgress(inout headers hdr,
     // alpha = 0,3125 => 1342 and beta = 3,125 => 13422
     // delay target is in us = 20000 => 20 msec
     // PI update interval is 2^x us, x = 15 => 32768 us ~= 33 msec
-    action pi2(alpha_t alpha, beta_t beta, delay_t target, interval_t interval){
+    action pi2(alpha_t alpha, beta_t beta, delay_t target, interval_t interval){  //difference start here
         bit<48> last_update_time = 0;
         int<32> last_queue_delay;
         bit<32> last_probability;
@@ -203,6 +206,7 @@ control MyEgress(inout headers hdr,
         random(rnd,0,MAX_RND);
 
         //check based on p (scalable)  or p (non scalable) and mark or drop
+   
         if (hdr.ipv4.ecn & 2 == 2) { // scalable tcp if ecn
 	      if ((rnd>>1) < last_probability) 
                  	hdr.ipv4.ecn = 3;         // mark insteaf of drop
@@ -227,6 +231,8 @@ control MyEgress(inout headers hdr,
 
     apply {
         // store queuing delay in ms (up to 2047ms)
+
+
         hdr.ipv4.qdelay_ms = (bit<11>)(standard_metadata.deq_timedelta >> 10);
 
         aqm.apply();    
@@ -241,8 +247,10 @@ control MyEgress(inout headers hdr,
             WRITE_REG(r_dropped, dropped_pks);
             hdr.ipv4.drops = drops;
         }
-    }
-
+     
+    
+    }  
+  
 }
 
 /*************************************************************************
@@ -256,9 +264,9 @@ control MyComputeChecksum(inout headers hdr, inout metadata meta) {
         { hdr.ipv4.version,
           hdr.ipv4.ihl,
           hdr.ipv4.diffserv,
-          hdr.ipv4.ecn,
+          hdr.ipv4.ecn,   //this is not available in basic
           hdr.ipv4.totalLen,
-//        hdr.ipv4.identification,
+          //hdr.ipv4.identification,
           hdr.ipv4.drops,
           hdr.ipv4.qdelay_ms,
           hdr.ipv4.flags,
@@ -295,4 +303,3 @@ MyEgress(),
 MyComputeChecksum(),
 MyDeparser()
 ) main;
-
