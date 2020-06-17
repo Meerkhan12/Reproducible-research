@@ -10,15 +10,15 @@ delay.
 
 ## Requirments:
 
-*Virtual Box
+Virtual Box
 
-*Mininet
+Mininet
  
-*P4
+P4
  
-*Scapy
+Scapy
  
-*Bmv2 Switch
+Bmv2 Switch
 
 ## Folder Description:
 
