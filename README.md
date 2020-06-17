@@ -12,6 +12,7 @@ delay.
 [Executable paper](https://github.com/Meerkhan12/Reproducible-research/blob/master/deliver/draft3.ipynb)
 
 
+
 ## Requirments:
 
 Virtual Box
@@ -23,6 +24,12 @@ P4
 Scapy
  
 Bmv2 Switch
+
+
+## Workflow
+
+![alt text](https://github.com/Meerkhan12/Reproducible-research/blob/master/figures/flowchart.jpg)
+
 
 ## Folder Description:
 
