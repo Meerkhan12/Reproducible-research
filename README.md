@@ -48,7 +48,7 @@ Src: Source code is available in this folder.
 
 1: Install the Virtual box
 
-2: Install our VM   (password: rocks)
+2: [Install our VM   (password: rocks)](https://drive.google.com/file/d/1lzQZEVthECibOvqK-xCQ_Wxy6TYerXzT/view)
 
 3: After the installation of VM now you should follow these steps:
 
