@@ -7,6 +7,10 @@ specific language for programming network switches. we implement our novel activ
 manipulating the bits at data plane and we can see in results that our proposed scheme is better in term of less less queuing
 delay.
 
+[Paper Pdf](https://github.com/Meerkhan12/Reproducible-research/blob/master/deliver/Project.pdf)
+
+[Executable paper](https://github.com/Meerkhan12/Reproducible-research/blob/master/deliver/draft3.ipynb)
+
 
 ## Requirments:
 
