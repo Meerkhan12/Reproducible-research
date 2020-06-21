@@ -77,11 +77,11 @@ F: In h1 commandline window use the command
           
 G: On the same time open another two terminals and in one terminal run this command for caputuring packets from interface 2 of switch:
          
-         sudo tcpdump -i s1-eth2 -w -c 250 -w interface2.pcap
+         sudo tcpdump -i s1-eth2 -c 250 -w interface2.pcap
          
 H: In second terminal run this command for caputring packets from interface 1 of switch.
           
-          sudo tcpdump -i s1-eth1 -w -c 250 -w interface1.pcap
+          sudo tcpdump -i s1-eth1 -c 250 -w interface1.pcap
           
 **Note: Now you will see two pcaps file in your Directory NAQM and open these file goto Ip header and you can see the queuing delay.**
 
