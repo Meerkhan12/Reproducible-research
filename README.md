@@ -135,7 +135,7 @@ pip install notebook
   * Clone this repository to your system.
   * Start the Jupyter Notebook from the terminal.
   * Go to the deliver folder and locate the preprocessing file called "draft3.ipynb", and run it.
-  * After performing pre-processing, locate the file "graph.ipynb".
+  * After performing pre-processing, locate the file "graph.ipynb" and run it.
   * The dataset is available in data folder. If you want to manipulate the dataset just open the "1.csv" or "2.csv file" (these files containing dataset collected 
     from our experiments). These files are also linked with "graph.ipynb" file for making graph.
   * Run all the codes inside and find the results in the articles.
