@@ -7,7 +7,7 @@ specific language for programming network switches. we implement our novel activ
 manipulating the bits at data plane and we can see in results that our proposed scheme is better in term of less less queuing
 delay.
 
-[Paper Pdf](https://github.com/Meerkhan12/Reproducible-research/blob/master/deliver/Project.pdf)
+[Paper Pdf](https://github.com/Meerkhan12/Reproducible-research/blob/master/deliver/A%20novel%20queue%20management%20scheme%20for%20programmable%20data%20plane%20using%20p4.pdf)
 
 [Executable paper](https://github.com/Meerkhan12/Reproducible-research/blob/master/deliver/draft3.ipynb)
 
