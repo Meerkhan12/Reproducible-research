@@ -35,7 +35,7 @@ Bmv2 Switch
 
 * /Data: In this folder dataset available used for Graphs.
 
-* /Deliver: Executeable file of Jupyter notebook and graph file used to build graph
+* /Deliver: Executeable file "draft3.ipynb" for Jupyter notebook and graph file "graph.ipynb" used to build graph. This folder also contains PDF version of paper.
 
 * /Figures: The figures used in paper like system setup, Graph etc.
 
