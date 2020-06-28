@@ -33,13 +33,13 @@ Bmv2 Switch
 
 ## Folder Description:
 
-Data: In this folder data available used for Graphs.
+/Data: In this folder dataset available used for Graphs.
 
-Deliver: Executeable file of Jupyter notebook
+/Deliver: Executeable file of Jupyter notebook and graph file used to build graph
 
-Figures: The figures used in paper like system setup, Graph etc.
+/Figures: The figures used in paper like system setup, Graph etc.
 
-Src: Source code is available in this folder.
+/Src: Source code used to build testbed in mininet is available in this folder.
 
 
 ## For Reproducing the paper:
@@ -59,9 +59,9 @@ B: Then give the command:
         make run
         
 C: A topology will be made and you can check different things like topology, connectivity just use these commands:
-        Topology: net
+                      
         
-        Connectivity: h1 ping h2    (use control + c to stop the ping)
+        h1 ping h2    (use control + c to stop the ping)
         
 D: Now for reproducing our work you use these commands:
          
