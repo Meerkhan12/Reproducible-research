@@ -33,13 +33,13 @@ Bmv2 Switch
 
 ## Folder Description:
 
-*/Data: In this folder dataset available used for Graphs.
+* /Data: In this folder dataset available used for Graphs.
 
-*/Deliver: Executeable file of Jupyter notebook and graph file used to build graph
+* /Deliver: Executeable file of Jupyter notebook and graph file used to build graph
 
-*/Figures: The figures used in paper like system setup, Graph etc.
+* /Figures: The figures used in paper like system setup, Graph etc.
 
-*/Src: Source code used to build testbed in mininet is available in this folder.
+* /Src: Source code used to build testbed in mininet is available in this folder.
 
 
 ## For Reproducing the paper:
